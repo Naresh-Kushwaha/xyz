@@ -1,0 +1,70 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: navratri-app
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:navratri}
+    username: ${DB_USERNAME:navratri}
+    password: ${DB_PASSWORD:navratri}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # ddl-auto=update is convenient for learning; switch to validate + Flyway/Liquibase migrations before production.
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 20
+    show-sql: false
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:changeme}
+            client-secret: ${GOOGLE_CLIENT_SECRET:changeme}
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+app:
+  jwt:
+    # Generate your own with: openssl rand -base64 64
+    secret: ${JWT_SECRET:this-is-a-dev-only-secret-please-change-me-before-any-real-deployment-0123456789}
+    access-token-minutes: 15
+    refresh-token-days: 30
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+  oauth2:
+    success-redirect: ${OAUTH2_SUCCESS_REDIRECT:http://localhost:5173/oauth2/callback}
+
+springdoc:
+  swagger-ui:
+    path: /docs
+
+logging:
+  level:
+    com.navratri.app: DEBUG

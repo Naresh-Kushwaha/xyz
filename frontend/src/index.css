@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-ivory text-night font-sans antialiased dark:bg-night dark:text-ivory;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  ::selection {
+    @apply bg-marigold/30;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-marigold px-5 py-2.5
+      font-semibold text-ivory shadow-glow transition hover:bg-marigold-dark
+      focus:outline-none focus:ring-2 focus:ring-marigold focus:ring-offset-2
+      focus:ring-offset-ivory dark:focus:ring-offset-night disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-night/15
+      bg-white/60 px-5 py-2.5 font-semibold text-night transition hover:border-night/30
+      dark:border-ivory/15 dark:bg-white/5 dark:text-ivory dark:hover:border-ivory/30;
+  }
+
+  .card {
+    @apply rounded-2xl border border-night/10 bg-white/70 p-5 shadow-sm backdrop-blur-sm
+      dark:border-ivory/10 dark:bg-white/5;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-night/15 bg-white/80 px-4 py-2.5 text-night
+      placeholder:text-night/40 focus:border-marigold focus:outline-none focus:ring-1
+      focus:ring-marigold dark:border-ivory/15 dark:bg-night-soft dark:text-ivory dark:placeholder:text-ivory/40;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-night/70 dark:text-ivory/70;
+  }
+}
